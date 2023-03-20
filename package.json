@@ -1,37 +1,37 @@
 {
-  "name": "nrc-kibana-nodes",
-  "version": "0.0.1",
-  "description": "Node-RED contributed (NRC) kibana nodes.",
-  "author": "Thorben Jändling (https://github.com/ThorbenJ/nrc-kibana-nodes)",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ThorbenJ/nrc-kibana-nodes.git"
-  },
-  "keywords": [
-    "node-red",
-    "elasticsearch",
-    "kibana"
-  ],
-  "node-red": {
-    "version": ">=3.0.0",
-    "nodes": {
-      "kn-kql2esq": "kql2esq.js"
+    "name": "nrc-kibana-nodes",
+    "version": "0.0.1",
+    "description": "Node-RED contributed (NRC) kibana nodes.",
+    "author": "Thorben Jändling (https://github.com/ThorbenJ/nrc-kibana-nodes)",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ThorbenJ/nrc-kibana-nodes.git"
+    },
+    "keywords": [
+        "node-red",
+        "elasticsearch",
+        "kibana"
+    ],
+    "node-red": {
+        "version": ">=3.0.0",
+        "nodes": {
+        "kn-kql2esq": "kql2esq.js"
+        }
+    },
+    "engines": {
+        "node": ">=14"
+    },
+    "license": "Apache-2.0",
+    "dependencies": {
+        "mustache": ">=4.2.0",
+        "yaml": ">2.2.0",
+        "kbn-pkg": "https://github.com/ThorbenJ/kbn-pkg/releases/latest/download/kbn-pkg.tgz"
+    },
+    "bugs": {
+        "url": "https://github.com/ThorbenJ/nrc-kibana-nodes/issues"
+    },
+    "homepage": "https://github.com/ThorbenJ/nrc-kibana-nodes#readme",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
     }
-  },
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@kbn/es-query": "file:./kibana/packages/kbn-es-query/target/types/packages/kbn-es-query/",
-    "mustache": ">=4.2.0",
-    "yaml": ">2.2.0"
-  },
-  "bugs": {
-    "url": "https://github.com/ThorbenJ/nrc-kibana-nodes/issues"
-  },
-  "homepage": "https://github.com/ThorbenJ/nrc-kibana-nodes#readme",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "bundleDependencies": [
-    "@kbn/es-query"
-  ]
 }

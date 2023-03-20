@@ -2,10 +2,10 @@
 module.exports = function(RED) {
 
     const U = require("./utils");
-    const Y = require("yaml");
     const M = require("mustache");
     M.escape = function (t) { return JSON.stringify(t) };
-    const KNESQ = require("@kbn/es-query")
+
+    const KP = require("kbn-pkg")
 
     function Kql2Esq(n) {
         RED.nodes.createNode(this,n);
@@ -15,10 +15,11 @@ module.exports = function(RED) {
         this.on('input', function(msg) {
 
             var kql = M.render(n.kql, msg)
-            var esq = KNESQ.buildEsQuery({
-                language: "kuery",
-                query: kql
-            })
+
+            var esq = KP.es_query().buildEsQuery(
+                null,
+                { language: "kuery", query: kql }
+            )
 
             node.send({...msg,
                 payload: esq

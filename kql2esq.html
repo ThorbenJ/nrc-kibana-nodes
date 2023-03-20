@@ -8,22 +8,7 @@ Values read in via the mustache templates (see options, below)
 ### Outputs
 
 1. Success
-: kn.index (string) : The index name
-: es.docId (string) : The document ID
-: es.docVer (number): The document version
-: es.created (boolean) : If a doc was created (true)
-: es.result (string): The request result (i.e. "created")
-: es.reponse (string) : The full response object
-Other fields, including payload, remain untouched.
-
-2. Failure
-: es.index (string) : The index name
-: es.docId (string) : The document ID
-: es.docVer (number): The document version
-: es.created (boolean) : If a doc was created (false)
-: es.result (string): The request result (i.e. "failed")
-: es.reponse (string) : The full response object
-Other fields, including payload, remain untouche
+: payload (object) : The compiled DSL
 
 ### Details
 
@@ -33,30 +18,51 @@ Other fields, including payload, remain untouche
 
 <script type="text/javascript">
     RED.nodes.registerType('kn-kql2esq',{
-        category: 'function',
+        category: 'Kibana',
         defaults: {
           name: {value: ''},
-          kql: {value: '{{{payload}}}'}
+          index: {value: 'logs-*'},
+          kql: {value: '{{payload}}'}
         },
-        color:'#C0C0C0',
-        paletteLabel: "dedot",
+        color:'#ffccff',
+        paletteLabel: "KQL⮕DSL",
         inputs:1,
         outputs:1,
-        icon: 'font-awesome/fa-gavel',
+        icon: 'kibana.png',
         label: function() {
-          return this.name || 'dedot';
+          return this.name || "KQL⮕DSL";
+        },
+        oneditprepare: function(){
+            this.kql_editor = RED.editor.createEditor({
+                id: 'node-input-kql-editor',
+                mode: 'ace/mode/yaml',
+                value: $("#node-input-kql").val()
+            });
+        },
+        oneditsave: function() {
+            $("#node-input-kql").val(this.kql_editor.getValue());
+            this.kql_editor.destroy();
+            delete this.kql_editor;
+        },
+        oneditcancel: function() {
+            this.kql_editor.destroy();
+            delete this.kql_editor;
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="kn-kql2esq">
+<script type="text/html" data-template-name="kn-kql2esq">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-pencil"></i> Name</label>
         <input type="text" id="node-input-name">
     </div>
+<!--    <div class="form-row">
+        <label for="node-input-index"><i class="fa fa-book"></i> Index</label>
+        <input type="text" id="node-input-index" />
+    </div> -->
     <div class="form-row">
-        <label for="node-input-kql"><i class="fa fa-pencil"></i> Name</label>
-        <textarea id="node-input-kql" rows="4" cols="60"></textarea>
+        <label for="node-input-kql"><i class="fa fa-pencil"></i> KQL</label>
+        <textarea id="node-input-kql" rows=4 cols=160></textarea>
     </div>
 </script>
 
