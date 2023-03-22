@@ -31,22 +31,6 @@ Values read in via the mustache templates (see options, below)
         icon: 'kibana.png',
         label: function() {
           return this.name || "KQL⮕DSL";
-        },
-        oneditprepare: function(){
-            this.kql_editor = RED.editor.createEditor({
-                id: 'node-input-kql-editor',
-                mode: 'ace/mode/yaml',
-                value: $("#node-input-kql").val()
-            });
-        },
-        oneditsave: function() {
-            $("#node-input-kql").val(this.kql_editor.getValue());
-            this.kql_editor.destroy();
-            delete this.kql_editor;
-        },
-        oneditcancel: function() {
-            this.kql_editor.destroy();
-            delete this.kql_editor;
         }
     });
 </script>
